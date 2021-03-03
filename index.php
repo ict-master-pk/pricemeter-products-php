@@ -1,22 +1,19 @@
-# Pricemeter Products PHP API
-Price Meter PHP API to manage store specific products
+<?php
+declare(strict_types = 1);
+require __DIR__ . '/vendor/autoload.php';
 
-## Requirement
-* PHP >= 7.2
+error_reporting(E_ALL);
 
-## Installation
-`composer require ict-master-pk/pricemeter-products-php`
+// Registering Whoops
+$whoops = new \Whoops\Run;
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
 
-## API Token
-* Get API token from `My Stores > <Your Store> > Import Settings`
-* From API import option, you'll get the **API Endpoint**
-* i.e, https://pricemeter.pk/notify_store/<api_token>
-
-## Usage
-```php
+// Preparing and making API call
+$apiToken = "";
 $product = new \Pricemeter\Model\Product($apiToken);
 $product = $product->fill([
-    'id' => 1,
+    'id' => 42343,
     'sku' => 'dummy',
     'upc' => "some upc",
     'title' => 'Dummy Product title',
@@ -24,24 +21,25 @@ $product = $product->fill([
     'category' => 'Computers > Battery',
     'price' => 350.4,
     'discounted_price' => 300.2,
-    'image_url' => 'https://dummystore.pk/detail_img.jpg',
-    'url' => 'https://dummystore.pk/q/dummy',
+    'image_url' => 'https://s3.ap-southeast-1.amazonaws.com/pm-storage/images/products/936/8510453468-41747_detail_img.jpg',
+    'url' => 'https://radiotvcentre.pk/q/dummy',
     'description' => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     'availability' => 1,
     'rating' => 4.5,
     'keywords' => 'dummy, products, items'
 ]);
 
-# To Insert
-$product->insert();
 
-# To Update
-$product->update();
+try {
+    // Making insert API call
+    dd($product->insert());
 
-# To Delete
-$product->delete();
-# OR do this in more convenient way as below
-(new \Pricemeter\Model\Product($apiToken))->fill([
-    'id' => 1
-])->delete();
-```
+    // Making update API call
+//    dd($product->update());
+
+    // Making delete API call
+//    dd($product->delete());
+
+} catch (\Exception $e) {
+    dd($product, $e);
+}
