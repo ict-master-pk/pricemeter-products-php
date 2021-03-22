@@ -2,7 +2,7 @@
 Price Meter PHP API to manage store specific products
 
 ## Requirement
-* PHP >= 7.2
+* PHP >= 5.5
 
 ## Installation
 `composer require ict-master-pk/pricemeter-products-php`
