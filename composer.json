@@ -2,6 +2,7 @@
     "name": "ict-master-pk/pricemeter-products-php",
     "description": "Price Meter PHP API to manage store specific products",
     "type": "library",
+    "license": "MIT",
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-json": "*",
