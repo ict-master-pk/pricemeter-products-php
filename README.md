@@ -6,6 +6,8 @@ Price Meter PHP API to manage store specific products
 
 ## Installation
 `composer require ict-master-pk/pricemeter-products-php`
+### For PHP >= 5.6
+`composer require ict-master-pk/pricemeter-products-php:dev-guzzle_655`
 
 ## API Token
 * Get API token from `My Stores > <Your Store> > Import Settings`
