@@ -13,6 +13,11 @@ class Product
      */
     private $endpoint;
 
+    /**
+     * @var mixed|null
+     */
+    private $cms;
+
     private $data = [];
 
     /**
@@ -36,9 +41,17 @@ class Product
         'keywords'
     ];
 
-    public function __construct($token)
+    public function __construct($token, $cms = null)
     {
         $this->endpoint = sprintf('notify_store/%s', $token);
+
+        if (!is_null($cms)) {
+            if (defined(Cms::class . "::{$cms}")) {
+                $this->cms = $cms;
+            } else {
+                throw new \Exception("Invalid CMS provided");
+            }
+        }
     }
 
     /**
@@ -64,7 +77,7 @@ class Product
      */
     public function insert()
     {
-        return Request::make('POST', $this->endpoint, $this->data);
+        return Request::make('POST', $this->endpoint, $this->data, $this->cms);
     }
 
     /**
@@ -81,7 +94,7 @@ class Product
         // Removing id from request
         unset($prodData['id']);
 
-        return Request::make('PUT', $this->endpoint . '/' . $id, $prodData);
+        return Request::make('PUT', $this->endpoint . '/' . $id, $prodData, $this->cms);
     }
 
     /**
@@ -92,7 +105,7 @@ class Product
      */
     public function delete()
     {
-        return Request::make('DELETE', $this->endpoint . '/' . $this->data['id']);
+        return Request::make('DELETE', $this->endpoint . '/' . $this->data['id'], [], $this->cms);
     }
 
     public function __serialize() : array
