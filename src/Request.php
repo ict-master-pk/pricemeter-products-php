@@ -15,18 +15,22 @@ class Request
      * @param $method
      * @param $uri
      * @param array $params
+     * @param null $cms
      * @return array
      * @throws GuzzleException
      */
-    public static function make($method, $uri, $params = []) : array
+    public static function make($method, $uri, $params = [], $cms = null) : array
     {
         $client = new Client([
-            'base_uri' => 'https://api.pricemeter.pk',
+            'base_uri' => 'https://psync.pricemeter.pk',
             'verify' => false,
         ]);
 
         $response = $client->request($method, $uri, [
-            'form_params' => $params
+            'form_params' => $params,
+            'headers' => [
+                'PM-CMS' => $cms
+            ]
         ]);
 
         if ($response->getStatusCode() == 200) {
