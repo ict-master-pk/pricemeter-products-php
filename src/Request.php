@@ -21,7 +21,7 @@ class Request
     public static function make($method, $uri, $params = []) : array
     {
         $client = new Client([
-            'base_uri' => 'https://pricemeter.pk',
+            'base_uri' => 'https://api.pricemeter.pk',
             'verify' => false,
         ]);
 
