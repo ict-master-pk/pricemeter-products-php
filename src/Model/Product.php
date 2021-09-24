@@ -16,7 +16,7 @@ class Product
     /**
      * @var mixed|null
      */
-    private $cms;
+    private $cms = "";
 
     private $data = [];
 
@@ -41,17 +41,10 @@ class Product
         'keywords'
     ];
 
-    public function __construct($token, $cms = null)
+    public function __construct($token, $cms = "")
     {
         $this->endpoint = sprintf('notify_store/%s', $token);
-
-        if (!is_null($cms)) {
-            if (defined(Cms::class . "::{$cms}")) {
-                $this->cms = $cms;
-            } else {
-                throw new \Exception("Invalid CMS provided");
-            }
-        }
+        $this->cms = $cms;
     }
 
     /**
