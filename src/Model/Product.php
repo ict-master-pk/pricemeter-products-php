@@ -53,7 +53,7 @@ class Product
      * @param array $data
      * @return Product
      */
-    public function fill(array $data) : Product
+    public function fill(array $data)
     {
         foreach ($data as $key => $value) {
             $this->{$key} = $value;
@@ -101,12 +101,12 @@ class Product
         return Request::make('DELETE', $this->endpoint . '/' . $this->data['id'], [], $this->cms);
     }
 
-    public function __serialize() : array
+    public function __serialize()
     {
         return $this->data;
     }
 
-    public function __unserialize(array $data) : void
+    public function __unserialize(array $data)
     {
         $this->data = $data;
     }

@@ -19,7 +19,7 @@ class Request
      * @return array
      * @throws GuzzleException
      */
-    public static function make($method, $uri, $params = [], $cms = null) : array
+    public static function make($method, $uri, $params = [], $cms = null)
     {
         $client = new Client([
             'base_uri' => 'https://psync.pricemeter.pk',
